@@ -3,12 +3,21 @@
 ### Inicio implementação automatos
 
 * Para iniciar o codigo basta abrir o <strong> main.py </strong> e executá-lo
+* Ele irá perguntar qual tipo de arquivo quer ler, DFA.TXT ou NFA.TXT, e só basta testar as palavras. 
 
-### Com o codigo executando
+### Arquivo de leitura DFA.txt
 
-1. Primeiro passo será passar a quantidade de estados do seu automato.
-2. Segundo passo será passar o nome de cada estado.
-3. Terceiro passo será passar o alfabeto do automato.
-4. Quarto passo é colocar cada ação do estado.
-5. E por fim divirta-se testando as palavras!
+* Exemplo do formato txt
 
+#### Alfabeto do automato
+##### alfabeto = 0, 1
+#### Seu estado inicial
+##### estadoInicial = s0
+#### Seu estado final
+##### estadoFinal = s0
+-----------------------
+
+#### Suas respectivas transições por exemplo de s0 quando ele recebe 0 ele vai para s0 e quando recebe 1 vai para s1. 
+##### s0: 0:s0,1:s1
+##### s1: 0:s2,1:s0 
+##### s2: 0:s1,1:s2 
