@@ -1,5 +1,5 @@
-class AutomatoFinitiDeterministico:
-    def checkIsAccepted(self,automato:dict,estadoInicial, estadoFinal,palavra):
+class AutomatoFinitoDeterministico:
+    def checkIsAcceptedDFA(self,automato:dict,estadoInicial, estadoFinal,palavra):
       #Iniciando o estado inicial
       estado = estadoInicial
       #Para cada letra do palavra

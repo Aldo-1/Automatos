@@ -45,7 +45,6 @@ def lerAutomatoDFA(txt):
       estado = line[:indexDoisPontos].strip()
       transicoes = line[indexDoisPontos+1:].split(',')
       transicoes = tirarEspacoVazio(transicoes)
-   
       for transicao in transicoes:
         indexDoisPontosTransicao = transicao.index(':')
         paraOndeVai = transicao[indexDoisPontosTransicao + 1:].strip()
@@ -60,11 +59,38 @@ def lerAutomatoDFA(txt):
           break
       automato[estado] = dicionarioLetra
       dicionarioLetra = {}
- 
-        
   f.close()
   return automato
 
-
-
+def lerAutomatoNFA(txt):
+  automato = {}
+  dicionarioLetra = {}
+  f = open(txt, 'r')
+  for line in f:
+    alfabeto = lerAlfabeto(txt)
+    if(line.find('=') == -1 and line != '\n'):
+      indexDoisPontos = line.index(':')
+      estado = line[:indexDoisPontos].strip()
+      transicoes = line[indexDoisPontos+1:].split('/')
+      transicoes = tirarEspacoVazio(transicoes)
+      for transicao in transicoes:
+        indexDoisPontosTransicao = transicao.index(':')
+        paraOndeVai = transicao[indexDoisPontosTransicao + 1:].strip()
+        if(paraOndeVai == 'nenhumEstado'):
+          paraOndeVai = ''
+        
+        letra = transicao[:indexDoisPontos - 1].strip()
+        
+        paraOndeVai = tirarEspacoVazio(paraOndeVai.split(','))
+        
+        if(letra in alfabeto):
+          automato[estado] = {}
+          dicionarioLetra[letra] = paraOndeVai
+        else:
+          print('ocorreu algum erro na execucao')
+          break
+      automato[estado] = dicionarioLetra
+      dicionarioLetra = {}
+  f.close()
+  return automato
 
