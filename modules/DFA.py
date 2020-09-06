@@ -1,6 +1,7 @@
 from modules.ler import *
 
 class AutomatoFinitoDeterministico:
+    ##Aqui ele ja ler os arquivos
     def __init__(self):
       self.estadoFinal = lerEstadoFinal('dfa.txt')
       self.estadoInicial = lerEstadoInicial('dfa.txt')

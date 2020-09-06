@@ -1,11 +1,11 @@
 class AutomatoFinitoNãoDeterministico:
 
   ##Transforma de array para string
-  def __transformArrayToString__(self,novoAutomato, palavras):
+  def __transformArrayToString__(self,novoAutomato, alfabeto):
     for estado in novoAutomato:
-      for palavra in palavras:
-        paraOndeVai = novoAutomato[estado][palavra]
-        novoAutomato[estado][palavra] = ','.join(paraOndeVai)
+      for letra in alfabeto:
+        paraOndeVai = novoAutomato[estado][letra]
+        novoAutomato[estado][letra] = ','.join(paraOndeVai)
     return novoAutomato
 
   ##aqui ele checa se tem espaco vazio e retorna true ou false
@@ -65,9 +65,9 @@ class AutomatoFinitoNãoDeterministico:
           ##Se nao foi visitado, no array
           
           if(estado != estadoInicial and not(estado in visitados)):
-            for palavra in alfabeto:
-              ##Crio um array na posicao do estado e da palavra 
-              novoAutomato[estado][palavra] = []
+            for letra in alfabeto:
+              ##Crio um array na posicao do estado e da letra 
+              novoAutomato[estado][letra] = []
               ##Pego cada estado 1 de cada
               arraySplit = estado.split(',')
               ##Exemplo = 0,1
@@ -75,19 +75,19 @@ class AutomatoFinitoNãoDeterministico:
               ##Quando recebe 1 vai para q1q2
               ##Agora eles juntam q0q1q2
               for unicoEstado in arraySplit:
-                resultado = automato[unicoEstado][palavra]
+                resultado = automato[unicoEstado][letra]
                 
                 if(self.__checkEmptySpace__(resultado)):
                   continue
                 else:
-                  novoAutomato[estado][palavra].extend(resultado)   
+                  novoAutomato[estado][letra].extend(resultado)   
             
             visitados.append(estado)    
       
         ##Aqui é para criar o estado dele no automato  
         for estado in visitados:
-          for palavra in alfabeto:
-            novoEstado = ','.join(novoAutomato[estado][palavra])
+          for letra in alfabeto:
+            novoEstado = ','.join(novoAutomato[estado][letra])
             if(novoEstado in novoAutomato):
               continue
             else:
