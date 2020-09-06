@@ -1,15 +1,22 @@
+from modules.ler import *
+
 class AutomatoFinitoDeterministico:
-    def checkIsAcceptedDFA(self,automato:dict,estadoInicial, estadoFinal,palavra):
+    def __init__(self):
+      self.estadoFinal = lerEstadoFinal('dfa.txt')
+      self.estadoInicial = lerEstadoInicial('dfa.txt')
+      self.alfabeto = lerAlfabeto('dfa.txt')
+      self.automato = lerAutomatoDFA('dfa.txt')
+    def checkIsAcceptedDFA(self,palavra):
       #Iniciando o estado inicial
-      estado = estadoInicial
+      estado = self.estadoInicial
       #Para cada letra do palavra
       for letra in palavra:
-        if(not(letra in automato[estado])):
+        if(not(letra in self.automato[estado])):
           print('algum caracter da palavra nao existe no alfabeto dessa maquina!')
           break
         else:
-          estado = automato[estado][letra]
-      if(estado in estadoFinal):
+          estado = self.automato[estado][letra]
+      if(estado in self.estadoFinal):
           return 'accept'
       else:
           return 'reject'
