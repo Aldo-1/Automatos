@@ -2,9 +2,9 @@
 
 ### Inicio implementação automatos
 
-* Para iniciar o codigo basta abrir o <strong> main.py </strong> e executá-lo
+* Para iniciar o codigo basta abrir o <strong> main.py </strong> e executá-lo.
 * Ele irá perguntar qual tipo de arquivo quer ler, DFA.TXT ou NFA.TXT, e só basta testar as palavras. 
-
+* Se quiser alterar o automato, deve-se alterar os TXTs, pois o alfabeto, estado, se inicia na classe que esta criada de NFA e DFA.
 -----------------------
 ### Arquivo de leitura DFA.txt 
 
