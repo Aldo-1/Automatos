@@ -1,0 +1,8 @@
+alfabeto = a, b
+estadoInicial = q0
+estadoFinal = q2
+
+
+q0: a:q0,q1/b:q0
+q1: a:nenhumEstado/b:q2 
+q2: a:nenhumEstado/b:nenhumEstado 
