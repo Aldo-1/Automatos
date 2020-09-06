@@ -1,6 +1,6 @@
 from modules.DFA import AutomatoFinitoDeterministico
 from modules.NFA import AutomatoFinitoNãoDeterministico
-from modules.ler import *
+
 
 
 def init(dfa, nfa):
@@ -9,26 +9,22 @@ def init(dfa, nfa):
     if(escolha == '1'):
       while(True):
         print('Alfabeto da maquina ', dfa.alfabeto, ' divirta-se!')
-        palavra = input('Digite a palavra para testar:(-1 sai do programa) = ')
+        palavra = input('Digite a palavra para testar: (-1 voltar ao inicio) = ')
         if(palavra == '-1'):
           break
         else:
           print(dfa.checkIsAcceptedDFA(palavra))
-    elif(escolha == '2'):
-      estadoFinalNFA = lerEstadoFinal('nfa.txt')
-      estadoInicialNFA = lerEstadoInicial('nfa.txt')
-      alfabetoNFA = lerAlfabeto('nfa.txt')
-      automatoNFA = lerAutomatoNFA('nfa.txt')
+    elif(escolha == '2'):  
       print('--------------------Transformação--------------------')
-      automatoNFA = nfa.transform(automatoNFA, alfabetoNFA, estadoInicialNFA)
+      automatoNFA = nfa.transform()
       print('-----------------------------------------------------')
       while(True):
-        print('Alfabeto da maquina ', alfabetoNFA, ' divirta-se!')
-        palavra = input('Digite a palavra para testar:(-1 sai do programa) = ')
+        print('Alfabeto da maquina ', nfa.alfabeto, ' divirta-se!')
+        palavra = input('Digite a palavra para testar: (-1 voltar ao inicio) = ')
         if(palavra == '-1'):
           break
         else:
-          print(nfa.checkIsAcceptedNFA(automatoNFA, estadoInicialNFA, estadoFinalNFA , palavra))
+          print(nfa.checkIsAcceptedNFA(automatoNFA, palavra))
     else:
       break
 

@@ -1,5 +1,13 @@
+from modules.ler import *
+
 class AutomatoFinitoNãoDeterministico:
 
+  def __init__(self):
+      self.estadoFinal = lerEstadoFinal('nfa.txt')
+      self.estadoInicial = lerEstadoInicial('nfa.txt')
+      self.alfabeto = lerAlfabeto('nfa.txt')
+      self.automato = lerAutomatoNFA('nfa.txt')
+      self.novoAutomato = {}
   ##Transforma de array para string
   def __transformArrayToString__(self,novoAutomato, alfabeto):
     for estado in novoAutomato:
@@ -29,45 +37,46 @@ class AutomatoFinitoNãoDeterministico:
     return novoAutomato
 
   ##checar se e aceito
-  def checkIsAcceptedNFA(self,automato:dict,estadoInicial, estadoFinal,palavra):
+  def checkIsAcceptedNFA(self,novoAutomato, palavra):
         #Iniciando o estado inicial
-        estado = estadoInicial
+        estado = self.estadoInicial
         #Para cada letra do palavra
         for letra in palavra:
-          if(not(letra in automato[estado])):
+          if(not(letra in novoAutomato[estado])):
             print('algum caracter da palavra nao existe no alfabeto dessa maquina!')
             break
           else:
-            estado = automato[estado][letra]
+            estado = novoAutomato[estado][letra]
         ##Para ver se o estado final esta no conjunto do estado final.
-        for ultimoEstado in estadoFinal:
+        for ultimoEstado in self.estadoFinal:
           if(ultimoEstado in estado):
             return 'accept'
           else:
             return 'reject'  
 
   ##Transformar ndfa para dfa
-  def transform(self,automato, alfabeto, estadoInicial, novoAutomato = {}):
+  def transform(self):
     try:
-      print('Automato Original:' , automato)
-      novoAutomato[estadoInicial] = {}
+      print('Automato Original:' , self.automato)
+      self.novoAutomato[self.estadoInicial] = {}
       ##Preencher o estado inicial que a partir dele iremos para os outros.
-      novoAutomato = self.__initInicialState__(automato, alfabeto, estadoInicial, novoAutomato)
+      self.novoAutomato = self.__initInicialState__(self.automato, self.alfabeto, self.estadoInicial, self.novoAutomato)
       visitados = []
-      print(novoAutomato)
+      print(self.novoAutomato)
       ##Enquanto o tamanho do vetor de resultados for diferente do tamanho do novo automato - 1
       ##Coloquei o -1 por conta que ele pula o estado inicial
-      while(len(visitados) != (len(novoAutomato) - 1)):
+      while(len(visitados) != (len(self.novoAutomato) - 1)):
+        
         ##Aqui é para pegar o estado que vai virar o estado do automato e
         ##Pegar os respectivos resultados do alfabeto de cada um
-        for estado in novoAutomato:
+        for estado in self.novoAutomato:
           ##Aqui eu verfico se ele é diferente do estado e inicial e 
           ##Se nao foi visitado, no array
           
-          if(estado != estadoInicial and not(estado in visitados)):
-            for letra in alfabeto:
+          if(estado != self.estadoInicial and not(estado in visitados)):
+            for letra in self.alfabeto:
               ##Crio um array na posicao do estado e da letra 
-              novoAutomato[estado][letra] = []
+              self.novoAutomato[estado][letra] = []
               ##Pego cada estado 1 de cada
               arraySplit = estado.split(',')
               ##Exemplo = 0,1
@@ -75,31 +84,30 @@ class AutomatoFinitoNãoDeterministico:
               ##Quando recebe 1 vai para q1q2
               ##Agora eles juntam q0q1q2
               for unicoEstado in arraySplit:
-                resultado = automato[unicoEstado][letra]
+                resultado = self.automato[unicoEstado][letra]
                 
                 if(self.__checkEmptySpace__(resultado)):
                   continue
                 else:
-                  novoAutomato[estado][letra].extend(resultado)   
+                  self.novoAutomato[estado][letra].extend(resultado)   
             
             visitados.append(estado)    
       
         ##Aqui é para criar o estado dele no automato  
         for estado in visitados:
-          for letra in alfabeto:
-            novoEstado = ','.join(novoAutomato[estado][letra])
-            if(novoEstado in novoAutomato):
+          for letra in self.alfabeto:
+            novoEstado = ','.join(self.novoAutomato[estado][letra])
+            if(novoEstado in self.novoAutomato):
               continue
             else:
-              novoAutomato[novoEstado] = {}
+              self.novoAutomato[novoEstado] = {}
         
-        print(novoAutomato)
-        
+        print(self.novoAutomato)
+      
       #aqui faco a transicao de array para como faco o finitio        
-    
-      novoAutomato = self.__transformArrayToString__(novoAutomato, alfabeto)
-      print('Automato Final:', novoAutomato)
-      return novoAutomato
+      self.novoAutomato = self.__transformArrayToString__(self.novoAutomato, self.alfabeto)
+      print('Automato Final:', self.novoAutomato)
+      return self.novoAutomato
     except:
       print('Ocorreu algum erro durante a transformação, verifique se o alfabeto esta correto, o estado inicial, ou se o automato é valido')
 
