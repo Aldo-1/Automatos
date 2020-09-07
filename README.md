@@ -23,11 +23,11 @@
 ### Arquivo de leitura NFA.txt
 
 #### Alfabeto do automato
-* alfabeto = 0, 1
+* alfabeto = a, b
 #### Seu estado inicial
-* estadoInicial = s0
+* estadoInicial = q0
 #### Seu estado final
-* estadoFinal = s0
+* estadoFinal = q2
 #### Suas respectivas transições por exemplo de q0 quando ele recebe 0 ele vai para q0 e q1 e quando recebe 1 vai para q0.
 ##### OBS: nenhumEstado significa que quando receber uma letra do alfabeto não irá para nenhum lugar.
 * q0: a:q0,q1/b:q0
